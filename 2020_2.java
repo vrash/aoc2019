@@ -27,9 +27,9 @@ public class AdventOfCode {
         validPasswordCount = 0;
         while (scanner2.hasNext()) {
             manipulateInput(scanner2);
-            final boolean isCharAtLowerBound = pwd.charAt(lowerbound - 1) == key.charAt(0);
-            final boolean isCharAtUpperBound = pwd.charAt(upperbound - 1) == key.charAt(0);
-            if ((isCharAtLowerBound || isCharAtUpperBound) && !(isCharAtLowerBound && isCharAtUpperBound))
+            final boolean isKeyAtLowerBound = pwd.charAt(lowerbound - 1) == key.charAt(0);
+            final boolean isKeyAtUpperBound = pwd.charAt(upperbound - 1) == key.charAt(0);
+            if ((isKeyAtLowerBound || isKeyAtUpperBound) && !(isKeyAtLowerBound && isKeyAtUpperBound))
                 validPasswordCount++;
         }
         System.out.println(validPasswordCount);
