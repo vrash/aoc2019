@@ -40,25 +40,25 @@ public class AdventOfCode {
 
     public static boolean byr(String nu) {
         int n = Integer.parseInt(nu);
-        return (int) (Math.log10(n) + 1) == 4 && n <= 2002 && n >= 1920 ? true : false;
+        return (int) (Math.log10(n) + 1) == 4 && n <= 2002 && n >= 1920;
     }
 
     public static boolean iyr(String nu) {
         int n = Integer.parseInt(nu);
-        return (int) (Math.log10(n) + 1) == 4 && n >= 2010 && n <= 2020 ? true : false;
+        return (int) (Math.log10(n) + 1) == 4 && n >= 2010 && n <= 2020;
     }
 
     public static boolean eyr(String nu) {
         int n = Integer.parseInt(nu);
-        return (int) (Math.log10(n) + 1) == 4 && n >= 2020 && n <= 2030 ? true : false;
+        return (int) (Math.log10(n) + 1) == 4 && n >= 2020 && n <= 2030;
     }
 
     public static boolean hgt(String nu) {
         int n = Integer.parseInt(nu.substring(0, nu.length() - 2));
         if (nu.contains("cm")) {
-            return n >= 150 && n <= 193 ? true : false;
+            return n >= 150 && n <= 193;
         } else {
-            return n >= 59 && n <= 76 ? true : false;
+            return n >= 59 && n <= 76;
         }
     }
 
