@@ -36,8 +36,7 @@ public class AdventOfCode {
             ArrayList<String> bagContentList = new ArrayList<>();
             entry = scanner.nextLine();
             String[] entrySplit = entry.split(" ");
-            String aNode = entrySplit[0] + entrySplit[1] + entrySplit[2].substring(0, entrySplit[2].length() - 1);
-            String bNode = entrySplit[0] + entrySplit[1] + entrySplit[2].substring(0, entrySplit[2].length() - 1);
+            String baggage = entrySplit[0] + entrySplit[1] + entrySplit[2].substring(0, entrySplit[2].length() - 1);
 
             if (entrySplit[entrySplit.length - 3].equals("no"))
                 continue;
@@ -50,13 +49,13 @@ public class AdventOfCode {
                 //part 1
                 if (listOfBagsInOtherBags.get(bagContent) == null)
                     listOfBagsInOtherBags.put(bagContent, new ArrayList<>());
-                listOfBagsInOtherBags.get(bagContent).add(aNode);
+                listOfBagsInOtherBags.get(bagContent).add(baggage);
                 //part 2
                 if (entrySplit[parseLength].substring(0, 1).matches("[0-9]"))
                     numberToAppend = Integer.parseInt(entrySplit[parseLength].substring(0, 1));
-                if (listOfBagsInThisBag.get(bNode) == null)
-                    listOfBagsInThisBag.put(bNode, new ArrayList<>());
-                listOfBagsInThisBag.get(bNode).add(new Bag(numberToAppend, bagContent));
+                if (listOfBagsInThisBag.get(baggage) == null)
+                    listOfBagsInThisBag.put(baggage, new ArrayList<>());
+                listOfBagsInThisBag.get(baggage).add(new Bag(numberToAppend, bagContent));
                 parseLength = parseLength + 4;
             }
         }
