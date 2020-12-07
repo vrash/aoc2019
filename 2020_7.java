@@ -20,7 +20,7 @@ public class AdventOfCode {
         System.out.println(findBagsCount(MY_BAG) - 1);
     }
 
-    public static class Bag {
+     static class Bag {
         int number;
         String colour;
 
@@ -30,7 +30,7 @@ public class AdventOfCode {
         }
     }
 
-    public static void getShinyGoldBagNumbers(Scanner scanner) {
+     static void getShinyGoldBagNumbers(Scanner scanner) {
         String entry;
         while (scanner.hasNext()) {
             ArrayList<String> bagContentList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class AdventOfCode {
     }
 
     // Your most inefficientness, Sir sanitizeInput
-    public static String sanitizeInput(String s) {
+     static String sanitizeInput(String s) {
         s = s.trim();
         if (s.endsWith("."))
             s = s.substring(0, s.length() - 1);
@@ -77,7 +77,7 @@ public class AdventOfCode {
     }
 
     //Recursive DFS
-    public static int findBagsCount(String myBag) {
+     static int findBagsCount(String myBag) {
         int ans = 1;
         if (listOfBagsInThisBag.get(myBag) == null)
             return ans;
@@ -89,7 +89,7 @@ public class AdventOfCode {
     }
 
     //BFS on bags list with my bag as graph starting point
-    public static void findBags() {
+     static void findBags() {
         Deque<String> q = new LinkedList<>();
         q.add(MY_BAG);
         while (!q.isEmpty()) {
