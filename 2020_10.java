@@ -1,19 +1,10 @@
-import static java.util.Arrays.copyOfRange;
-import static java.util.Arrays.stream;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.*;
-import java.util.Set;
 
 public class AdventOfCode {
     static ArrayList<Integer> inputList = new ArrayList<>();
     static int[] inputArray;
-    static int oneDiffJolt = 0;
-    static int threeDiffJolt = 0;
-
-    static HashMap<Integer, Integer> dp = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
         File filePath = new File("/Users/vrashabhirde/Desktop/aoc/input.txt");
@@ -31,9 +22,9 @@ public class AdventOfCode {
         while (scanner.hasNext()) {
             inputList.add(Integer.parseInt(scanner.nextLine()));
         }
-        //
+        //outlet
         inputList.add(0);
-        //add your device
+        //device built in
         inputList.add(Collections.max(inputList) + 3);
 
         inputArray = inputList.stream().mapToInt(i -> i).toArray();
@@ -42,6 +33,8 @@ public class AdventOfCode {
     }
 
     public static int joltageDiffMux() {
+        int oneDiffJolt = 0;
+        int threeDiffJolt = 0;
         for (int i = 0; i < inputArray.length - 1; i++) {
             int diff = inputArray[i + 1] - inputArray[i];
             if (diff == 1)
