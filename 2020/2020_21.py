@@ -45,7 +45,7 @@ while len(map_ingredients) < len(allergens):
         if len(_possible)==1:
             map_ingredients[i] = _possible[0]
             set_used.add(_possible[0])
-
+#canon sort
 canonical = ','.join([k for k,v in sorted(map_ingredients.items(), key=lambda kv:kv[1])])
 #part 2
 print(canonical)
