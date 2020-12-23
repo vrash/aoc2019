@@ -1,60 +1,78 @@
-from copy import deepcopy
+import time
 
-with open("/Users/vrashabhirde/Desktop/input.txt") as f:
-    lines = f.read().strip("\n")
-    lines = lines.split("\n\n")
-    deck1 = lines[0].split("\n")[1:]
-    deck2 = lines[1].split("\n")[1:]
-    deck1 = list(map(int,deck1))
-    deck2 = list(map(int,deck2))
-    deck1_1 = deepcopy(deck1)
-    deck2_2 = deepcopy(deck2)
+def move(cups):
+    cup, pickup, rest = cups[0], cups[1:4], cups[4:]
+    destination = cup - 1
+    if destination == 0:
+        destination = 9
+    while destination in pickup:
+        destination = (destination - 1)
+        if destination == 0:
+            destination = 9
+    dest_idx = rest.index(destination)
+    cups = rest[:dest_idx+1] + pickup + rest[dest_idx+1:] + [cup]
+    return cups
 
-def printscore(deck1,deck2):
-    if(deck1):
-        print("Ans: ", sum((i+1)*v for i,v in enumerate(deck1[::-1])))
-    else:
-        print("Ans: ", sum((i+1)*v for i,v in enumerate(deck2[::-1])))
 
-def war(deck1,deck2):
-    while len(deck1)>0 and len(deck2)>0:
-        card1 = deck1.pop(0)
-        card2 = deck2.pop(0)
-        if card1 > card2:
-            deck1.extend([card1,card2])
+def part_one():
+    cups = list(map(int,'614752839'))
+    cups = list(map(int, '389125467'))  # sample
+
+    for round in range(1, 101):
+        cups = move(cups)
+
+    one_idx = cups.index(1)
+    answer_1 = "".join(map(str, cups[one_idx:] + cups[:one_idx]))[1:]
+    print(answer_1)
+
+# part 2 needs a big rethink as the above is too slow!
+
+
+class Cup:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+    def __repr__(self):
+        return f"{self.val}"
+
+    def head(self, n):
+        if n == 1:
+            return str(self.val)
         else:
-            deck2.extend([card2,card1])
+            return f"{self.val}-{self.next.head(n-1)}"
 
-def combat(deck1,deck2):
-    handseen = set()
-    while len(deck1)>0 and len(deck2)>0:
-        #check for hand seen previously
-        if (tuple(deck1),tuple(deck2)) in handseen:
-            #base
-            return True
-        handseen.add((tuple(deck1),tuple(deck2)))
-        #print("Seen: ", seen)
-        card1 = deck1.pop(0)
-        card2 = deck2.pop(0)
-        if len(deck1) >= card1 and len(deck2) >= card2:
-            #sub flow
-            #print("DECK1:",deck1)
-            #print("DECK2:",deck2)
-            winner = combat(deck1[:card1], deck2[:card2])
-            if winner:
-                deck1.extend([card1,card2])
-            else:
-                deck2.extend([card2,card1])
-        else:
-            #normal game flow
-            if card1 > card2:
-                deck1.extend([card1,card2])
-            else:
-                deck2.extend([card2,card1])
-    return len(deck1)>0
 
-#war, what is it good for?
-war(deck1,deck2)
-printscore(deck1,deck2)
-combat(deck1_1,deck2_2)
-printscore(deck1_1,deck2_2)
+def move_two(cup, val_to_cup, cup_max):
+    pickup = [cup.next, cup.next.next, cup.next.next.next]
+    cup.next = pickup[-1].next
+    destination_val = cup_max if cup.val == 1 else cup.val - 1
+    while destination_val in [cup.val for cup in pickup]:
+        destination_val = cup_max if destination_val == 1 else destination_val - 1
+    val_to_cup[destination_val].next, pickup[-1].next = pickup[0], val_to_cup[destination_val].next
+    return cup.next
+
+
+def part_two():
+    cup_max = 1000000
+    cups = list(map(int, '614752839')) + list(range(10, cup_max+1))
+    cups = list(map(Cup, cups))
+    for cup, next_cup in zip(cups, cups[1:]):
+        cup.next = next_cup
+    cups[-1].next = cups[0]
+
+    val_to_cup = {cup.val: cup for cup in cups}
+    cup = cups[0]
+
+    for _ in range(10000000):
+        cup = move_two(cup, val_to_cup, cup_max)
+
+    print(val_to_cup[1].head(3))
+    print(val_to_cup[1].next.val * val_to_cup[1].next.next.val)
+
+
+part_one()
+start_time = time.time()
+part_two()
+end_time = time.time()
+print("Time: ", round(end_time-start_time,5))
