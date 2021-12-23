@@ -20,12 +20,13 @@ def solve(S, n):
             else:
                 temp[x-1] += count
         COUNTER = temp
+    print (COUNTER)
     return sum(COUNTER.values())
 
 #part1
-print(solve(COUNTER, 80))
+print(solve(COUNTER, 3))
 #part2
-print(solve(COUNTER, 256))
+#print(solve(COUNTER, 256))
 
 
 
