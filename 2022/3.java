@@ -18,8 +18,7 @@ public class Main {
             String firstHalf = word.substring(0, (word.length() / 2));
             String secondHalf = word.substring(word.length() / 2);
             Set<Character> ss1 = toSet(firstHalf);
-            ss1.retainAll(toSet(secondHalf));
-            List<Character> list = new ArrayList<>(ss1);
+            part1Sum += partialSum(new ArrayList<>(ss1));
             part1Sum += partialSum(list);
         }
         System.out.println(part1Sum);
