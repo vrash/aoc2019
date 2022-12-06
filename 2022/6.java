@@ -8,7 +8,7 @@ public class Main {
     static int WINDOW_PART2 = 14;
 
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(new File("/Users/vrashabh.irde@carwow.co.uk/Desktop/Advent-Of-Code/2022/input.txt"));
+        Scanner scanner = new Scanner(new File("/Users/../Desktop/Advent-Of-Code/2022/input.txt"));
         while (scanner.hasNext()) {
             String inputWords = scanner.nextLine();
             //toggle part1/2 depending on need
