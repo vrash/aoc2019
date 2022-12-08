@@ -17,7 +17,7 @@ public class Main {
         for (String line : input) {
             if (line.startsWith("$ cd ..")) currentDir = currentDir.substring(0, currentDir.lastIndexOf("/"));
             else if (line.startsWith("$ cd")) currentDir = currentDir + "/" + line.substring(5);
-            else if (line.substring(0, 1).matches("[0-9]+")) {
+            else if (isNumeric(line.substring(0, 1))) {
                 int size = Integer.parseInt(line.split(" ")[0]);
                 String path = currentDir;
                 while (path.length() > 0) {
@@ -38,5 +38,14 @@ public class Main {
         }
         System.out.println("part1: " + part1sum);
         System.out.println("part2: " + part2);
+    }
+
+    private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        return pattern.matcher(strNum).matches();
     }
 }
