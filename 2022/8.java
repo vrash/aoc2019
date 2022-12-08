@@ -12,10 +12,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         int[][] input = build2DArrayinput();
         int part1 = 0;
-        char[][] visibility = new char[ROWS][COL];
+        boolean[][] visibility = new boolean[ROWS][COL];
         for (int i = 0; i < ROWS; i++)
             for (int j = 0; j < COL; j++)
-                visibility[i][j] = 'y';
+                visibility[i][j] = true;
 
         for (int i = 0; i < ROWS - 1; i++) {
             for (int j = 0; j < COL - 1; j++) {
@@ -24,14 +24,14 @@ public class Main {
         }
         for (int i = 0; i < ROWS; i++)
             for (int j = 0; j < COL; j++)
-                if (visibility[i][j] == 'y') part1++;
+                if (visibility[i][j]) part1++;
 
         System.out.println(part1);
         System.out.println(part2);
 
     }
 
-    public static void setVisibility(int[][] input, int row, int col, char[][] visibility) {
+    public static void setVisibility(int[][] input, int row, int col, boolean[][] visibility) {
         boolean lflag = true;
         boolean rflag = true;
         boolean tflag = true;
@@ -79,9 +79,7 @@ public class Main {
         if (bflag)
             bDist--;
 
-        if (Stream.of(lflag, rflag, tflag, bflag).anyMatch(x -> x))
-            visibility[row][col] = 'y';
-        else visibility[row][col] = 'n';
+        visibility[row][col] = Stream.of(lflag, rflag, tflag, bflag).anyMatch(x -> x);
 
         part2 = Math.max(part2, (tDist * rDist * lDist * bDist));
     }
