@@ -1,29 +1,28 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Stream;
 
 public class Main {
     static int ROWS = 0;
-    static int COL = 0;
+    static int COLS = 0;
     static int part2 = Integer.MIN_VALUE;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws FileNotFoundException {
         int[][] input = build2DArrayinput();
         int part1 = 0;
-        boolean[][] visibility = new boolean[ROWS][COL];
+        boolean[][] visibility = new boolean[ROWS][COLS];
         for (int i = 0; i < ROWS; i++)
-            for (int j = 0; j < COL; j++)
+            for (int j = 0; j < COLS; j++)
                 visibility[i][j] = true;
 
         for (int i = 0; i < ROWS - 1; i++) {
-            for (int j = 0; j < COL - 1; j++) {
+            for (int j = 0; j < COLS - 1; j++) {
                 setVisibility(input, i, j, visibility);
             }
         }
         for (int i = 0; i < ROWS; i++)
-            for (int j = 0; j < COL; j++)
+            for (int j = 0; j < COLS; j++)
                 if (visibility[i][j]) part1++;
 
         System.out.println(part1);
@@ -31,57 +30,54 @@ public class Main {
 
     }
 
-    public static void setVisibility(int[][] input, int row, int col, boolean[][] visibility) {
-        boolean lflag = true;
-        boolean rflag = true;
-        boolean tflag = true;
-        boolean bflag = true;
-        int tDist = 1;
-        int lDist = 1;
-        int rDist = 1;
-        int bDist = 1;
+    public enum DIRECTION {
+        LEFT, RIGHT, TOP, BOTTOM
+    }
 
+    public static void setVisibility(int[][] input, int row, int col, boolean[][] visibility) {
+        boolean[] flags = {true, true, true, true};
+        int[] distArray = {1, 1, 1, 1};
 
         for (int i = row - 1; i >= 0; i--) {
             if (input[row][col] <= input[i][col]) {
-                tflag = false;
+                flags[DIRECTION.TOP.ordinal()] = false;
                 break;
-            } else
-                tDist++;
+            } else distArray[DIRECTION.TOP.ordinal()]++;
         }
-        if (tflag)
-            tDist--;
-        for (int i = col + 1; i <= COL - 1; i++) {
+        if (flags[DIRECTION.TOP.ordinal()]) distArray[DIRECTION.TOP.ordinal()]--;
+
+
+        for (int i = col + 1; i <= COLS - 1; i++) {
             if (input[row][col] <= input[row][i]) {
-                rflag = false;
+                flags[DIRECTION.RIGHT.ordinal()] = false;
                 break;
-            } else
-                rDist++;
+            } else distArray[DIRECTION.RIGHT.ordinal()]++;
         }
-        if (rflag)
-            rDist--;
+        if (flags[DIRECTION.RIGHT.ordinal()]) distArray[DIRECTION.RIGHT.ordinal()]--;
+
+
         for (int i = col - 1; i >= 0; i--) {
             if (input[row][col] <= input[row][i]) {
-                lflag = false;
+                flags[DIRECTION.LEFT.ordinal()] = false;
                 break;
-            } else
-                lDist++;
+            } else distArray[DIRECTION.LEFT.ordinal()]++;
         }
-        if (lflag)
-            lDist--;
+        if (flags[DIRECTION.LEFT.ordinal()]) distArray[DIRECTION.LEFT.ordinal()]--;
+
+
         for (int i = row + 1; i <= ROWS - 1; i++) {
             if (input[row][col] <= input[i][col]) {
-                bflag = false;
+                flags[DIRECTION.BOTTOM.ordinal()] = false;
                 break;
-            } else
-                bDist++;
+            } else distArray[DIRECTION.BOTTOM.ordinal()]++;
         }
-        if (bflag)
-            bDist--;
+        if (flags[DIRECTION.BOTTOM.ordinal()]) distArray[DIRECTION.BOTTOM.ordinal()]--;
 
-        visibility[row][col] = Stream.of(lflag, rflag, tflag, bflag).anyMatch(x -> x);
+        //part 1
+        visibility[row][col] = Stream.of(flags[DIRECTION.LEFT.ordinal()], flags[DIRECTION.RIGHT.ordinal()], flags[DIRECTION.TOP.ordinal()], flags[DIRECTION.BOTTOM.ordinal()]).anyMatch(x -> x);
 
-        part2 = Math.max(part2, (tDist * rDist * lDist * bDist));
+        //part 2
+        part2 = Math.max(part2, (distArray[DIRECTION.BOTTOM.ordinal()] * distArray[DIRECTION.LEFT.ordinal()] * distArray[DIRECTION.RIGHT.ordinal()] * distArray[DIRECTION.TOP.ordinal()]));
     }
 
     public static int[][] build2DArrayinput() throws FileNotFoundException {
@@ -97,8 +93,8 @@ public class Main {
             r++;
         }
         ROWS = r;
-        COL = c;
-        int[][] input = new int[r][c];
+        COLS = c;
+        int[][] input = new int[ROWS][COLS];
         while (scanner1.hasNext()) {
             for (int i = 0; i < r; i++) {
                 String s = scanner1.nextLine();
