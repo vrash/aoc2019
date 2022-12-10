@@ -38,18 +38,20 @@ public class Main {
     }
 
     public static void printCRT() {
-        if ((cycle - 1) % CRT_BOUND == 0) {
+        int prevCycle = cycle - 1;
+        if ((prevCycle) % CRT_BOUND == 0) {
             System.out.println("");
         }
-        if ((cycle - 1) % CRT_BOUND == spritePosition || (cycle - 1) % CRT_BOUND == (spritePosition - 1) || (cycle - 1) % CRT_BOUND == spritePosition + 1)
+        if ((prevCycle) % CRT_BOUND == spritePosition || (prevCycle) % CRT_BOUND == (spritePosition - 1) || (prevCycle) % CRT_BOUND == spritePosition + 1)
             System.out.print("# ");
         else System.out.print(". ");
     }
 
     public static void getTotalSignalStrength(int cycle) {
-        if (cycle == 19 || cycle == 59 || cycle == 99 || cycle == 139 || cycle == 179 || cycle == 219) {
+        int during = cycle + 1;
+        if (during == 20 || during == 60 || during == 100 || during == 140 || during == 180 || during == 220) {
             {
-                totalSignalStrength = totalSignalStrength + ((cycle + 1) * X);
+                totalSignalStrength = totalSignalStrength + ((during) * X);
             }
 
         }
