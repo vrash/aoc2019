@@ -5,17 +5,19 @@ import java.util.*;
 public class Main {
     static int ROWS = 0;
     static int COLS = 0;
-    static int endx = 0;
-    static int endy = 0;
+    static int ENDX = 0;
+    static int ENDY = 0;
+    static int PART1GOAL = 27;
+    static int PART2GOAL = 26;
 
     public static void main(String[] args) throws FileNotFoundException {
         int[][] input = build2DArrayinput();
-        System.out.println("Part 1: " + (calculatePath(input, new int[ROWS][COLS], endx, endy, 27) - 2));
-        System.out.println("Part 2: " + (calculatePath(input, new int[ROWS][COLS], endx, endy, 26) - 2));
+        System.out.println("Part 1: " + (findLowestSteps(input, new int[ROWS][COLS], ENDX, ENDY, PART1GOAL) - 2));
+        System.out.println("Part 2: " + (findLowestSteps(input, new int[ROWS][COLS], ENDX, ENDY, PART2GOAL) - 2));
     }
 
-    public static int calculatePath(final int[][] map, final int[][] minKnownPath, final int x, final int y, int goal) {
-        int pathToThisSquare = minKnownPath[x][y] + 1;
+    public static int findLowestSteps(final int[][] map, final int[][] minPath, final int x, final int y, int goal) {
+        int pathToThisSquare = minPath[x][y] + 1;
 
         int lowestSteps = Integer.MAX_VALUE;
         for (int direction = 1; direction <= 7; direction += 2) {
@@ -24,13 +26,13 @@ public class Main {
 
             if (nx >= 0 && nx < map.length && ny >= 0 && ny < map[0].length) {
                 boolean canMakeStep = map[nx][ny] <= map[x][y] + 1;
-                boolean isShorterPath = (minKnownPath[nx][ny] == 0 || pathToThisSquare < minKnownPath[nx][ny]);
+                boolean isShorterPath = (minPath[nx][ny] == 0 || pathToThisSquare < minPath[nx][ny]);
                 if (canMakeStep && isShorterPath) {
-                    minKnownPath[nx][ny] = pathToThisSquare;
+                    minPath[nx][ny] = pathToThisSquare;
                     if (map[nx][ny] == goal) {
                         return pathToThisSquare;
                     }
-                    lowestSteps = Math.min(lowestSteps, calculatePath(map, minKnownPath, nx, ny, goal));
+                    lowestSteps = Math.min(lowestSteps, findLowestSteps(map, minPath, nx, ny, goal));
                 }
             }
         }
@@ -61,8 +63,8 @@ public class Main {
                     if (matcher == 'S') {
                         input[i][j] = 27;
                     } else if (matcher == 'E') {
-                        endx = i;
-                        endy = j;
+                        ENDX = i;
+                        ENDY = j;
                         input[i][j] = 0;
                     } else
                         input[i][j] = (int) 'z' + 1 - matcher;
