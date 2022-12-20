@@ -10,23 +10,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         int[][] input = build2DArrayinput();
-        int part1 = 0;
-        boolean[][] visibility = new boolean[ROWS][COLS];
-        for (int i = 0; i < ROWS; i++)
-            for (int j = 0; j < COLS; j++)
-                visibility[i][j] = true;
 
-        for (int i = 0; i < ROWS - 1; i++) {
-            for (int j = 0; j < COLS - 1; j++) {
-                setVisibility(input, i, j, visibility);
-            }
-        }
-        for (int i = 0; i < ROWS; i++)
-            for (int j = 0; j < COLS; j++)
-                if (visibility[i][j]) part1++;
-
-        System.out.println(part1);
-        System.out.println(part2);
 
     }
 
@@ -80,28 +64,5 @@ public class Main {
         part2 = Math.max(part2, (distArray[DIRECTION.BOTTOM.ordinal()] * distArray[DIRECTION.LEFT.ordinal()] * distArray[DIRECTION.RIGHT.ordinal()] * distArray[DIRECTION.TOP.ordinal()]));
     }
 
-    public static int[][] build2DArrayinput() throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("/Users/../Desktop/Advent-Of-Code/2022/input.txt"));
-        Scanner scanner1 = new Scanner(new File("/Users/../Desktop/Advent-Of-Code/2022/input.txt"));
-        int r = 0;
-        int c = 0;
-        while (scanner.hasNext()) {
-            String s = scanner.nextLine();
-            if (r == 0) {
-                c = s.length();
-            }
-            r++;
-        }
-        ROWS = r;
-        COLS = c;
-        int[][] input = new int[ROWS][COLS];
-        while (scanner1.hasNext()) {
-            for (int i = 0; i < r; i++) {
-                String s = scanner1.nextLine();
-                for (int j = 0; j < c; j++)
-                    input[i][j] = Integer.parseInt(s.split("")[j]);
-            }
-        }
-        return input;
-    }
+
 }
