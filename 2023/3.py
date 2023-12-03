@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import sys
 import re
 from collections import defaultdict
@@ -10,65 +12,77 @@ R = len(lines)
 C = len(lines[0])
 
 
-#return symbol
-def find_symbol(x,y):
-  if 0<=x<C and 0<=y<R and lines[y][x]!="." and not lines[y][x].isdigit():
-    return (lines[y][x],(x,y))
-  return None
+# return symbol
 
-    
+def find_symbol(x, y):
+    if 0 <= x < C and 0 <= y < R and lines[y][x] != '.' \
+        and not lines[y][x].isdigit():
+        return (lines[y][x], (x, y))
+    return None
+
+
 part1 = 0
 part2 = 0
 
-gears=defaultdict(list)
+gears = defaultdict(list)
 
-for y,line in enumerate(lines):
-  i=0
-  #print(line)
-  while i<len(line):
-     #keep track of start and end position of a number
-    if line[i].isdigit():
-      leftMost=i-1
-      rightMost = i
+for (y, line) in enumerate(lines):
+    i = 0
 
-      #iterate through line, until not a digit to grab a full number
-      while rightMost<len(line) and line[rightMost].isdigit():
-        rightMost = rightMost + 1
-      #build the number
-      n = int(line[leftMost+1:rightMost])
+  # print(line)
 
-      #check if there's an adjacent symbol to number
-      nearestSymbol = find_symbol(leftMost,y) or find_symbol(rightMost,y)
+    while i < len(line):
 
-      #diagonal check
-      for pos in range(leftMost,rightMost+1):
-        nearestSymbol = (nearestSymbol or find_symbol(pos,y-1) or find_symbol(pos,y+1))
+     # keep track of start and end position of a number
 
-      if nearestSymbol:
-        
-        part1+=n
-        #part2
-        symbol,pos = nearestSymbol
-        #if star then append numbers together in the dict
-        if symbol == "*":
-          gears[pos].append(n)
+        if line[i].isdigit():
+            leftMost = i - 1
+            rightMost = i
 
-      i=rightMost
+      # iterate through line, until not a digit to grab a full number
 
-    else:
-      i=i+1
+            while rightMost < len(line) and line[rightMost].isdigit():
+                rightMost = rightMost + 1
+
+      # build the number
+
+            n = int(line[leftMost + 1:rightMost])
+
+      # check if there's an adjacent symbol to number
+
+            nearestSymbol = find_symbol(leftMost, y) \
+                or find_symbol(rightMost, y)
+
+      # diagonal check
+
+            for pos in range(leftMost, rightMost + 1):
+                nearestSymbol = nearestSymbol or find_symbol(pos, y
+                        - 1) or find_symbol(pos, y + 1)
+
+            if nearestSymbol:
+
+                part1 += n
+
+        # part2
+
+                (symbol, pos) = nearestSymbol
+
+        # if star then append numbers together in the dict
+
+                if symbol == '*':
+                    gears[pos].append(n)
+
+            i = rightMost
+        else:
+
+            i = i + 1
 
 for gear in gears.values():
-  #check dict if there are exactly two values
-  if len(gear)==2:
-    part2 = part2 + gear[0] * gear[1]
 
-print(part1)
-print(part2)
+  # check dict if there are exactly two values
 
+    if len(gear) == 2:
+        part2 = part2 + gear[0] * gear[1]
 
-
-
-        
-  
-  
+print (part1)
+print (part2)
