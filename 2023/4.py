@@ -4,29 +4,30 @@ import sys
 import re
 from collections import defaultdict
 
+
 part1 = 0
 part2 = 0
+Numbers = defaultdict(int)
 
-with open('/Users/vrashabh.irde@carwow.co.uk/Desktop/Advent-of-Code/2023/input.txt') as f:
-    inputLines = f.read()
+with open('/Users/.../Desktop/Advent-of-Code/2023/input.txt') as f:  # Replace with your actual file path
+    lines = f.read().split('\n')
 
-lines = inputLines.split('\n')
 
-for l in lines:
-    card = l[8:23]
-    mycard = l[25:48]
-    internalParts = 0
-    first = True
-    for win in mycard.split(" "):
-        if win!="" and win in card.split(" "):
-            if first == True:
-                internalParts = 1
-                first = False
-            else:
-                internalParts = internalParts * 2
-                print(win, "match", internalParts)
-    part1 = part1 + internalParts
-              
-print (part1)
-#print (part2)
+for i,line in enumerate(lines):
+    Numbers[i] += 1
+    if '|' in line:
+        first, second = line.split('|')
+        card_id_, card = first.split(':')
+        ticket = set(map(int, card.split()))
+        mycard = set(map(int, second.split()))
+        val = len(ticket & mycard)
+  
+        if val > 0:
+            part1 += 2**(val-1)
 
+        for j in range(val):
+            Numbers[i+1+j] += Numbers[i]
+part2 = sum(Numbers.values())
+
+print(part1)
+print(part2)
