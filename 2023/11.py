@@ -6,7 +6,7 @@ from itertools import combinations
 from bisect import bisect
 
 
-filename = "/Users/vrashabh.irde@carwow.co.uk/Desktop/Advent-of-Code/2023/input.txt" 
+filename = "/Users/..../Desktop/Advent-of-Code/2023/input.txt" 
 grid = []
 with open(filename, 'r') as f:
     for line in f:
