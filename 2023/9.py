@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys
 
-file_path = "/Users/.../Desktop/Advent-of-Code/2023/input.txt" 
+file_path = "/Users/vrashabh.irde@carwow.co.uk/Desktop/Advent-of-Code/2023/inputsmall.txt" 
 with open(file_path, 'r') as file:
     histories = [list(map(int, line.strip().split())) for line in file.readlines()]
 
