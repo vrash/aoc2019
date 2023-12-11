@@ -70,6 +70,3 @@ def find_max_distance(grid):
     return max(dists.values())
 
 print(find_max_distance(read_grid_from_file(filename)))
-
-
-
