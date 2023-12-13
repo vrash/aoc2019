@@ -4,7 +4,7 @@ import sys
 from functools import cache
 
 
-filename = "/Users/vrashabh.irde@carwow.co.uk/Desktop/Advent-of-Code/2023/input.txt" 
+filename = "/Users/.../Desktop/Advent-of-Code/2023/input.txt" 
 
 grid = []
 with open(filename, 'r') as f:
@@ -14,7 +14,7 @@ with open(filename, 'r') as f:
 part1, part2 = {}, {}
 
 
-
+@cache
 def transform(entries, springs, res = 0):
 
     if not springs:
@@ -39,5 +39,3 @@ for e, (entries,springs) in enumerate(grid):
 print(sum(x for x in part1.values()))
 #part2
 print(sum(x for x in part2.values()))
-
-
