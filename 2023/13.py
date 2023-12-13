@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from collections import defaultdict
 
-filename = "/Users/vrashabh.irde@carwow.co.uk/Desktop/Advent-of-Code/2023/input.txt" 
+filename = "/Users/.../Desktop/Advent-of-Code/2023/input.txt" 
 
 grid = [[x for x in s.split('\n')if x]for s in open(filename).read().split('\n\n')]
 parts = defaultdict(int)
