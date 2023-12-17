@@ -50,5 +50,5 @@ def Dijk(part1):
       ans = min(ans, v)
   return ans
 
-print(Dijk(True))
-print(Dijk(False))
+print('Part 1:', Dijk(True))
+print('Part 2:', Dijk(False))
