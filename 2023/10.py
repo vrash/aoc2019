@@ -4,25 +4,13 @@ import sys
 import collections
 from queue import Queue
 
-filename = "/Users/.../Desktop/Advent-of-Code/2023/inputsmall.txt" 
+filename = "/Users/vrashabh.irde@carwow.co.uk/Desktop/Advent-of-Code/2023/inputsmall.txt" 
 def read_grid_from_file(filename):
     with open(filename, 'r') as f:
         grid = []
         for line in f:
             grid.append(line.strip())
     return grid
-
-def print_queue(q):
-    temp_list = []
-    print("Queue contents:")
-    while not q.empty():
-        item = q.get()
-        print(item)
-        temp_list.append(item)
-
-    # Re-queue the items
-    for item in temp_list:
-        q.put(item)
 
 def find_max_distance(grid):
     directions = {
@@ -51,7 +39,7 @@ def find_max_distance(grid):
                 if start_x == start_x + dx + dx2 and start_y == start_y + dy + dy2:
                     q.put((1, (start_x + dx, start_y + dy)))
 
-    print_queue(q)
+    #print_queue(q)
 
     dists = {(start_x, start_y): 0}
     assert q.qsize() == 2
