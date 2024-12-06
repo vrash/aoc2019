@@ -39,7 +39,7 @@ def parse_input(input_text):
             print("true") 
             safetycount = safetycount + 1       
 
-with open('/Users/Vrash.Irde/Desktop/Advent-Of-Code/2024/input.txt') as f:
+with open('/Users/... /Desktop/Advent-Of-Code/2024/input.txt') as f:
     inputLines = f.read()
 
 parse_input(inputLines)
