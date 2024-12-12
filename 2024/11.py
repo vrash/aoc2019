@@ -17,7 +17,7 @@ def countstones(count_stones, max_blinks):
                     new_value = value * 2024
                     newstones[new_value] = newstones.get(new_value, 0) + count 
         count_stones = newstones
-        blink += 1    
+        blink += 1
     return sum(count for count in count_stones.values())
 
 def solve(initial_stones, blinks):
@@ -26,7 +26,7 @@ def solve(initial_stones, blinks):
         count_stones[stone] = count_stones.get(stone, 0) + 1
     return countstones(count_stones, blinks)
 
-input = [28591, 78, 0, 3159881, 4254, 524155, 598, 1]
+input = [25, 17]
 part1 = solve(input, 25)
 print(part1)
 part2 = solve(input, 75)
