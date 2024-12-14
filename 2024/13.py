@@ -5,10 +5,7 @@ from z3 import *
 import re
 def ints(s): #nice
     return [int(x) for x in re.findall('\d+', s)]
-p1 = 0
-p2 = 0
-D = open('/Users/..../Desktop/Advent-Of-Code/2024/input.txt').read().strip()
-
+file = open('/Users/..../Desktop/Advent-Of-Code/2024/input.txt').read().strip()
 def solve(ax,ay,bx,by,px,py,part2):
     P2 = 10000000000000 if part2 else 0
     px += P2
@@ -26,11 +23,12 @@ def solve(ax,ay,bx,by,px,py,part2):
         return ret
     else:
         return 0
-machines = D.split('\n\n')
+machines = file.split('\n\n')
+part1 = 0 
+part2 = 0
 for i,machine in enumerate(machines):
     ax,ay,bx,by,px,py = ints(machine)
-    p1 += solve(ax,ay,bx,by,px,py, False)
-    p2 += solve(ax,ay,bx,by,px,py, True)
-
-print('part1:', p1)
-print('part2:', p2)
+    part1 += solve(ax,ay,bx,by,px,py, False)
+    part2 += solve(ax,ay,bx,by,px,py, True)
+print('part1:', part1)
+print('part2:', part2)
