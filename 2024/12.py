@@ -1,6 +1,6 @@
 from collections import defaultdict, deque
 
-with open('/Users/.../Advent-Of-Code/2024/input.txt') as f:
+with open('/Users/Vrash.Irde/Desktop/Advent-Of-Code/2024/input.txt') as f:
     input_text = f.read().strip()
 grid = [list(line) for line in input_text.splitlines()]
 
