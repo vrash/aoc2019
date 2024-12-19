@@ -9,3 +9,4 @@
 Scripts/*
 Includes/*
 .venv/
+*.txt
