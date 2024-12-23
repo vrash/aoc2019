@@ -7,9 +7,11 @@ def solve(filename):
         anti = []
         for freq in {*G.values()} - {'.'}:
             ants = [p for p in G if G[p] == freq]
+          
             pairs = permutations(ants, 2)
+            print(pairs)
             anti += [a+n*(a-b) for a,b in pairs for n in r]
         result = len(set(anti) & set(G))
         print(result)
 
-solve('/Users/..../Advent-Of-Code/2024/input.txt')
+solve('/Users/.../2024/input.txt')
