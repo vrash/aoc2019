@@ -1,4 +1,3 @@
-from pathlib import Path
 def solve(text):
     locks, keys = [], []
     for section in text.strip().split('\n\n'):
@@ -19,4 +18,4 @@ def solve(text):
     return sum(1 for lock in locks for key in keys 
               if all(l + k <= rows for l, k in zip(lock, key)))
 
-print(solve(Path("/Users/..../Advent-Of-Code/2024/input.txt").read_text()))
+print(solve(Path("/Users/Vrash.Irde/Desktop/Advent-Of-Code/2024/input.txt").read_text()))
